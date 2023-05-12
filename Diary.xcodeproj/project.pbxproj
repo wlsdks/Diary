@@ -14,6 +14,8 @@
 		ECCC02E72A0E8CF00068CAB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECCC02E62A0E8CF00068CAB8 /* Assets.xcassets */; };
 		ECCC02EA2A0E8CF00068CAB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCC02E82A0E8CF00068CAB8 /* LaunchScreen.storyboard */; };
 		ECCC02F22A0E951A0068CAB8 /* DiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02F12A0E951A0068CAB8 /* DiaryCell.swift */; };
+		ECCC02F42A0E95500068CAB8 /* StarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02F32A0E95500068CAB8 /* StarViewController.swift */; };
+		ECCC02F62A0E96950068CAB8 /* StarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02F52A0E96950068CAB8 /* StarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		ECCC02E92A0E8CF00068CAB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECCC02EB2A0E8CF00068CAB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECCC02F12A0E951A0068CAB8 /* DiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCell.swift; sourceTree = "<group>"; };
+		ECCC02F32A0E95500068CAB8 /* StarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarViewController.swift; sourceTree = "<group>"; };
+		ECCC02F52A0E96950068CAB8 /* StarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				ECCC02E82A0E8CF00068CAB8 /* LaunchScreen.storyboard */,
 				ECCC02EB2A0E8CF00068CAB8 /* Info.plist */,
 				ECCC02F12A0E951A0068CAB8 /* DiaryCell.swift */,
+				ECCC02F32A0E95500068CAB8 /* StarViewController.swift */,
+				ECCC02F52A0E96950068CAB8 /* StarCell.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -142,9 +148,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECCC02E22A0E8CEF0068CAB8 /* ViewController.swift in Sources */,
+				ECCC02F62A0E96950068CAB8 /* StarCell.swift in Sources */,
 				ECCC02DE2A0E8CEF0068CAB8 /* AppDelegate.swift in Sources */,
 				ECCC02E02A0E8CEF0068CAB8 /* SceneDelegate.swift in Sources */,
 				ECCC02F22A0E951A0068CAB8 /* DiaryCell.swift in Sources */,
+				ECCC02F42A0E95500068CAB8 /* StarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
