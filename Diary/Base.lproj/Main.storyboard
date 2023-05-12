@@ -34,6 +34,29 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tiB-9U-JyH">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="ㄴㅇ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBQ-cd-8tK">
+                                                    <rect key="frame" x="12" y="12" width="156" height="143"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="23.05.13 (토)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9n-2v-Nx3">
+                                                    <rect key="frame" x="12" y="167" width="156" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="b9n-2v-Nx3" secondAttribute="bottom" constant="12" id="KEy-ir-ifO"/>
+                                                <constraint firstAttribute="trailing" secondItem="qBQ-cd-8tK" secondAttribute="trailing" constant="12" id="W2S-ze-vXH"/>
+                                                <constraint firstItem="b9n-2v-Nx3" firstAttribute="leading" secondItem="tiB-9U-JyH" secondAttribute="leading" constant="12" id="dbQ-6N-CUK"/>
+                                                <constraint firstItem="qBQ-cd-8tK" firstAttribute="leading" secondItem="tiB-9U-JyH" secondAttribute="leading" constant="12" id="jLJ-6k-HHw"/>
+                                                <constraint firstAttribute="trailing" secondItem="b9n-2v-Nx3" secondAttribute="trailing" constant="12" id="oNs-b1-e2t"/>
+                                                <constraint firstItem="qBQ-cd-8tK" firstAttribute="top" secondItem="tiB-9U-JyH" secondAttribute="top" constant="12" id="rVv-oR-joL"/>
+                                                <constraint firstItem="b9n-2v-Nx3" firstAttribute="top" secondItem="qBQ-cd-8tK" secondAttribute="bottom" constant="12" id="wN0-ru-Qi4"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="180" height="200"/>
                                     </collectionViewCell>
@@ -103,6 +126,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Ao3-CP-aRV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="47o-bA-CFI">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
