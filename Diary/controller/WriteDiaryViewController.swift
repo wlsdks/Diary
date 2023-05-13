@@ -99,14 +99,15 @@ class WriteDiaryViewController: UIViewController {
         guard let contents = self.contentsTextView.text else { return }
         guard let date = self.diaryDate else { return }
         // 위에서 선언한 값들을 담아준다.
-        let diary = Diary(title: title, contents: contents, date: date, isStar: false)
         
         // switch문으로 NotificationCenter를 사용하도록 하고 new 와 edit을 구분해서 각각 다른동작을 하도록 코드를 구현함
         switch self.diaryEditorMode {
         case .new:
+            let diary = Diary(title: title, contents: contents, date: date, isStar: false)
             self.delegate?.didSelectRegister(diary: diary)
             
-        case let .edit(indexPath, _):
+        case let .edit(indexPath, diary):
+            let diary = Diary(title: title, contents: contents, date: date, isStar: diary.isStar)
             NotificationCenter.default.post(
                 name: NSNotification.Name("editDiary"),
                 object: diary,
@@ -117,7 +118,6 @@ class WriteDiaryViewController: UIViewController {
         
         }
         
-        self.delegate?.didSelectRegister(diary: diary)
         // 일기장 화면으로 이동되도록 해준다.
         self.navigationController?.popViewController(animated: true)
     }
