@@ -107,6 +107,19 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - 일기 선택시 상세항목으로 이동시키는 기능 구현을 위해 delegate 채택
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
+        let diary = self.diaryList[indexPath.row]
+        viewController.diary = diary
+        viewController.indexPath = indexPath
+        viewController.delegate = self
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
 // MARK: - WriteDiaryViewDelegate를 확장해서 채택해야 위에 prepare에서 사용가능함
 extension ViewController: WriteDiaryViewDelegate {
     
@@ -119,6 +132,15 @@ extension ViewController: WriteDiaryViewDelegate {
         })
         // 일기가 추가될때마다 collectionView를 reload시킨다.
         self.collectionView.reloadData()
+    }
+    
+}
+
+extension ViewController: DiaryDetailViewDelegate {
+    
+    func didSelectDelete(indexPath: IndexPath) {
+        self.diaryList.remove(at: indexPath.row)
+        self.collectionView.deleteItems(at: [indexPath])
     }
     
 }
