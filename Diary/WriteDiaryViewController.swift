@@ -8,16 +8,21 @@
 import UIKit
 
 class WriteDiaryViewController: UIViewController {
-
+    
     @IBOutlet weak var titleTextField: UILabel!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var confirmButton: UIBarButtonItem!
     
+    // 날짜관련 변수선언
+    private let datePicker = UIDatePicker()
+    private var diaryDate: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureContentsTextView()
-    
+        configureDatePicker()
+        
     }
     
     private func configureContentsTextView() {
@@ -29,8 +34,34 @@ class WriteDiaryViewController: UIViewController {
         self.contentsTextView.layer.cornerRadius = 5.0
     }
     
+    // MARK: - datePicker 설정코드
+    private func configureDatePicker() {
+        self.datePicker.datePickerMode = .date
+        self.datePicker.preferredDatePickerStyle = .wheels
+        // 값이 변경될때(for로 설정해줌) #selector내부의 함수가 호출된다.
+        self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
+        self.datePicker.locale = Locale(identifier: "ko-KR")
+        // dateTextField를 선택하면 키보드가 아닌 datePicker가 나오도록 설정
+        self.dateTextField.inputView = self.datePicker
+    }
+    
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
         
     }
     
+    @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
+        // DateFormatter는 날짜를 사람이 읽을수 있는 형태로 변환해줌 또는 날짜를 date타입으로 변환시켜줌
+        let formmater = DateFormatter()
+        // 아래 코드처럼 formmat 형식을 적어주면 된다.
+        formmater.dateFormat = "yyyy년 MM월 dd일(EEEEE)"
+        formmater.locale = Locale(identifier: "ko_KR")
+        // 이제 코드안에 date값을 설정해 준다.
+        self.diaryDate = datePicker.date
+        self.dateTextField.text = formmater.string(from: datePicker.date)
+    }
+    
+    // 빈 화면을 눌러주면 키보드나 datepicker가 사라진다.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
