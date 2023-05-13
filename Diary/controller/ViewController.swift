@@ -10,12 +10,18 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    private var diaryList = [Diary]()
+    
+    // MARK: - diaryList배열에 추가될때마다 저장되도록 한다.
+    private var diaryList = [Diary]() {
+        didSet {
+            self.saveDiaryList()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.configureCollectionView()
+        self.loadDiaryList()
     }
     
     // MARK: - collectionview 설정
@@ -31,6 +37,35 @@ class ViewController: UIViewController {
             writeDiaryViewController.delegate = self
         }
             
+    }
+    
+    // MARK: - 일기 저장 -> 앱을 재시작해도 일기가 사라지지않도록 코드작성
+    private func saveDiaryList() {
+        let date = self.diaryList.map {
+            [
+                "title": $0.title,
+                "contents": $0.contents,
+                "date":$0.date,
+                "isStar":$0.isStar
+            ]
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(date, forKey: "diaryList")
+    }
+    
+    private func loadDiaryList() {
+        let userDefaults = UserDefaults.standard
+        guard let data = userDefaults.object(forKey: "diaryList") as? [[String: Any]] else {
+            return
+        }
+        // dictionary 타입에 접근해서 데이터를 세팅해 준다.
+        self.diaryList = data.compactMap {
+            guard let title = $0["title"] as? String else { return nil }
+            guard let contents = $0["contents"] as? String else { return nil }
+            guard let date = $0["date"] as? Date else { return nil }
+            guard let isStar = $0["isStar"] as? Bool else { return nil }
+            return Diary(title: title, contents: contents, date: date, isStar: isStar)
+        }
     }
     
     // MARK: - 데이터 타입을 전달받으면 문자열로 변환시켜주는 메서드 선언
