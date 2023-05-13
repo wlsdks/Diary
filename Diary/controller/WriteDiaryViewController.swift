@@ -7,6 +7,14 @@
 
 import UIKit
 
+
+// MARK: - 프로토콜 선언
+protocol WriteDiaryViewDelegate: AnyObject {
+    // 파라미터에 일기 내용이 작성된 diary 객체를 전달한다.
+    func didSelectRegister(diary: Diary)
+}
+
+
 class WriteDiaryViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -17,6 +25,7 @@ class WriteDiaryViewController: UIViewController {
     // 날짜관련 변수선언
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
+    weak var delegate: WriteDiaryViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +65,16 @@ class WriteDiaryViewController: UIViewController {
         self.dateTextField.addTarget(self, action: #selector(dateTextFieldDidChange(_:)), for: .editingChanged)
     }
     
+    // MARK: - 등록버튼 클릭시 동작
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
-        
+        guard let title = self.titleTextField.text else { return }
+        guard let contents = self.contentsTextView.text else { return }
+        guard let date = self.diaryDate else { return }
+        // 위에서 선언한 값들을 담아준다.
+        let diary = Diary(title: title, contents: contents, date: date, isStar: false)
+        self.delegate?.didSelectRegister(diary: diary)
+        // 일기장 화면으로 이동되도록 해준다.
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {

@@ -18,6 +18,7 @@
 		ECCC02F62A0E96950068CAB8 /* StarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02F52A0E96950068CAB8 /* StarCell.swift */; };
 		ECCC02F82A0F555A0068CAB8 /* WriteDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02F72A0F555A0068CAB8 /* WriteDiaryViewController.swift */; };
 		ECCC02FA2A0F55A20068CAB8 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02F92A0F55A20068CAB8 /* DiaryDetailViewController.swift */; };
+		ECCC02FC2A0F62BA0068CAB8 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC02FB2A0F62BA0068CAB8 /* Diary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		ECCC02F52A0E96950068CAB8 /* StarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarCell.swift; sourceTree = "<group>"; };
 		ECCC02F72A0F555A0068CAB8 /* WriteDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteDiaryViewController.swift; sourceTree = "<group>"; };
 		ECCC02F92A0F55A20068CAB8 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
+		ECCC02FB2A0F62BA0068CAB8 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,18 +70,43 @@
 			children = (
 				ECCC02DD2A0E8CEF0068CAB8 /* AppDelegate.swift */,
 				ECCC02DF2A0E8CEF0068CAB8 /* SceneDelegate.swift */,
-				ECCC02E12A0E8CEF0068CAB8 /* ViewController.swift */,
-				ECCC02E32A0E8CEF0068CAB8 /* Main.storyboard */,
+				ECCC02FE2A0F63280068CAB8 /* models */,
+				ECCC02FF2A0F634B0068CAB8 /* views */,
+				ECCC02FD2A0F630D0068CAB8 /* controller */,
 				ECCC02E62A0E8CF00068CAB8 /* Assets.xcassets */,
-				ECCC02E82A0E8CF00068CAB8 /* LaunchScreen.storyboard */,
 				ECCC02EB2A0E8CF00068CAB8 /* Info.plist */,
-				ECCC02F12A0E951A0068CAB8 /* DiaryCell.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		ECCC02FD2A0F630D0068CAB8 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				ECCC02E12A0E8CEF0068CAB8 /* ViewController.swift */,
 				ECCC02F32A0E95500068CAB8 /* StarViewController.swift */,
-				ECCC02F52A0E96950068CAB8 /* StarCell.swift */,
 				ECCC02F72A0F555A0068CAB8 /* WriteDiaryViewController.swift */,
 				ECCC02F92A0F55A20068CAB8 /* DiaryDetailViewController.swift */,
 			);
-			path = Diary;
+			path = controller;
+			sourceTree = "<group>";
+		};
+		ECCC02FE2A0F63280068CAB8 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				ECCC02FB2A0F62BA0068CAB8 /* Diary.swift */,
+				ECCC02F12A0E951A0068CAB8 /* DiaryCell.swift */,
+				ECCC02F52A0E96950068CAB8 /* StarCell.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		ECCC02FF2A0F634B0068CAB8 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				ECCC02E32A0E8CEF0068CAB8 /* Main.storyboard */,
+				ECCC02E82A0E8CF00068CAB8 /* LaunchScreen.storyboard */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +185,7 @@
 				ECCC02F62A0E96950068CAB8 /* StarCell.swift in Sources */,
 				ECCC02DE2A0E8CEF0068CAB8 /* AppDelegate.swift in Sources */,
 				ECCC02E02A0E8CEF0068CAB8 /* SceneDelegate.swift in Sources */,
+				ECCC02FC2A0F62BA0068CAB8 /* Diary.swift in Sources */,
 				ECCC02FA2A0F55A20068CAB8 /* DiaryDetailViewController.swift in Sources */,
 				ECCC02F22A0E951A0068CAB8 /* DiaryCell.swift in Sources */,
 				ECCC02F42A0E95500068CAB8 /* StarViewController.swift in Sources */,
