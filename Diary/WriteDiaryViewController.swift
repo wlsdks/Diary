@@ -9,7 +9,7 @@ import UIKit
 
 class WriteDiaryViewController: UIViewController {
     
-    @IBOutlet weak var titleTextField: UILabel!
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var confirmButton: UIBarButtonItem!
@@ -22,6 +22,8 @@ class WriteDiaryViewController: UIViewController {
         super.viewDidLoad()
         configureContentsTextView()
         configureDatePicker()
+        // 등록버튼을 비활성화 시켜준다.
+        self.confirmButton.isEnabled = false
         
     }
     
@@ -45,6 +47,12 @@ class WriteDiaryViewController: UIViewController {
         self.dateTextField.inputView = self.datePicker
     }
     
+    // input필드 검증하는 메서드
+    private func configureInputField() {
+        self.contentsTextView.delegate = self
+        self.titleTextField.addTarget(self, action: #selector(titleTextFieldDidChange(_:)), for: .editingChanged)
+    }
+    
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
         
     }
@@ -60,8 +68,26 @@ class WriteDiaryViewController: UIViewController {
         self.dateTextField.text = formmater.string(from: datePicker.date)
     }
     
+    // 제목이 입력될때마다 등록버튼 활성화 여부를 알수 있도록 호출되어 동작하는 메서드
+    @objc private func titleTextFieldDidChange(_ textField: UITextField) {
+        self.validateInputField()
+    }
+    
     // 빈 화면을 눌러주면 키보드나 datepicker가 사라진다.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    // InputField 내용이 있는지 검증하는 코드 - true, false반환
+    private func validateInputField() {
+        self.confirmButton.isEnabled = !(self.titleTextField.text?.isEmpty ?? true) && !(self.dateTextField.text?.isEmpty ?? true) && !self.contentsTextView.text.isEmpty
+    }
+}
+
+// MARK: - 텍스트 delegate 확장 선언
+extension WriteDiaryViewController: UITextViewDelegate {
+    // textview에 text가 입력 될때마다 호출되는 메서드다.
+    func textViewDidChange(_ textView: UITextView) {
+        self.validateInputField()
     }
 }
