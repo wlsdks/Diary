@@ -22,6 +22,7 @@ class WriteDiaryViewController: UIViewController {
         super.viewDidLoad()
         configureContentsTextView()
         configureDatePicker()
+        configureInputField()
         // 등록버튼을 비활성화 시켜준다.
         self.confirmButton.isEnabled = false
         
@@ -51,10 +52,8 @@ class WriteDiaryViewController: UIViewController {
     private func configureInputField() {
         self.contentsTextView.delegate = self
         self.titleTextField.addTarget(self, action: #selector(titleTextFieldDidChange(_:)), for: .editingChanged)
-        // datePicker는 키보드로 입력을 받지 않다보니 .editingChanged를 발생시키려면 아래의 코드를 하나 더 작성해줘야 한다.
+        // datePicker는 키보드로 입력을 받지 않다보니 .editingChanged를 발생시키려면 sendActions코드 작성이 필요하다
         self.dateTextField.addTarget(self, action: #selector(dateTextFieldDidChange(_:)), for: .editingChanged)
-        // 이러면 날짜가 변경될때마다 editingChanged를 동작시킨다.
-        self.dateTextField.sendActions(for: .editingChanged)
     }
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
@@ -70,6 +69,7 @@ class WriteDiaryViewController: UIViewController {
         // 이제 코드안에 date값을 설정해 준다.
         self.diaryDate = datePicker.date
         self.dateTextField.text = formmater.string(from: datePicker.date)
+        self.dateTextField.sendActions(for: .editingChanged)
     }
     
     // 제목이 입력될때마다 등록버튼 활성화 여부를 검증하는 메서드
