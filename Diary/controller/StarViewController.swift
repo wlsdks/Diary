@@ -84,3 +84,13 @@ extension StarViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: UIScreen.main.bounds.width - 20, height: 80)
     }
 }
+
+extension StarViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "DiaryDetailViewController") as? DiaryDetailViewController else { return }
+        let diary = self.diaryList[indexPath.row]
+        viewController.diary = diary
+        viewController.indexPath = indexPath
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+}
