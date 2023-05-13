@@ -51,6 +51,7 @@ class WriteDiaryViewController: UIViewController {
     private func configureInputField() {
         self.contentsTextView.delegate = self
         self.titleTextField.addTarget(self, action: #selector(titleTextFieldDidChange(_:)), for: .editingChanged)
+        self.dateTextField.addTarget(self, action: #selector(dateTextFieldDidChange(_:)), for: .editingChanged)
     }
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
@@ -68,10 +69,16 @@ class WriteDiaryViewController: UIViewController {
         self.dateTextField.text = formmater.string(from: datePicker.date)
     }
     
-    // 제목이 입력될때마다 등록버튼 활성화 여부를 알수 있도록 호출되어 동작하는 메서드
+    // 제목이 입력될때마다 등록버튼 활성화 여부를 검증하는 메서드
     @objc private func titleTextFieldDidChange(_ textField: UITextField) {
         self.validateInputField()
     }
+    
+    // 날짜를 선택할때(변경될때)마다 등록버튼 활성화 여부를 검증하는 메서드
+    @objc private func dateTextFieldDidChange(_ textField: UITextField) {
+        self.validateInputField()
+    }
+    
     
     // 빈 화면을 눌러주면 키보드나 datepicker가 사라진다.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
