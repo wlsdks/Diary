@@ -9,6 +9,7 @@ import UIKit
 
 protocol DiaryDetailViewDelegate: AnyObject {
     func didSelectDelete(indexPath: IndexPath)
+    func didSelectStar(indexPath: IndexPath, isStar: Bool)
 }
 
 
@@ -83,8 +84,19 @@ class DiaryDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // 즐겨찾기를 토글처럼 만든다.
     @objc func tapStarButton() {
+        guard let isStar = self.diary?.isStar else { return }
+        guard let indexPath = self.indexPath else { return }
         
+        if isStar {
+            self.starButton?.image = UIImage(systemName: "star")
+        } else {
+            self.starButton?.image = UIImage(systemName: "star.fill")
+        }
+        // 마지막에 변경해줘서 다음에 누르면 바뀌니까 토글역할을 한다.
+        self.diary?.isStar = !isStar
+        self.delegate?.didSelectStar(indexPath: indexPath, isStar: self.diary?.isStar ?? false)
     }
     
     // MARK: - 관찰이 필요없을때는 옵저버가 제거된다.
