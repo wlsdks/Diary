@@ -20,6 +20,13 @@ class DiaryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
+        // 즐겨찾기 옵저버 -> 저로 다른 두 탭의 즐겨찾기상태 싱크를 맞추기 위함
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(starDiaryNotification(_:)),
+            name: NSNotification.Name("starDiary"),
+            object: nil
+        )
     }
     
     private func configureView() {
@@ -60,11 +67,20 @@ class DiaryDetailViewController: UIViewController {
     
     @objc func editDiaryNotification(_ notification: Notification) {
         guard let diary = notification.object as? Diary else { return }
-        guard let row = notification.userInfo?["indexPath.row"] as? Int else { return }
         self.diary = diary
         self.configureView()
     }
     
+    @objc func starDiaryNotification(_ notification: Notification) {
+        guard let starDiary = notification.object as? [String: Any] else { return }
+        guard let isStar = starDiary["isStar"] as? Bool else { return }
+        guard let uuidString = starDiary["uuidString"] as? String else { return }
+        guard let diary = self.diary else { return }
+        if diary.uuidString == uuidString {
+            self.diary?.isStar = isStar
+            self.configureView()
+        }
+    }
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
         guard let uuidString = self.diary?.uuidString else { return }
@@ -94,7 +110,7 @@ class DiaryDetailViewController: UIViewController {
                 "diary": self.diary,
                 "isStar": self.diary?.isStar ?? false,
                 "uuidString": diary?.uuidString
-            ],
+            ] as [String : Any],
             userInfo: nil)
     }
     
