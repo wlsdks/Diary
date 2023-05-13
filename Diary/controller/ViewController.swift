@@ -18,10 +18,12 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - 앱 실행시 가장 먼저 동작하는 메서드
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureCollectionView()
         self.loadDiaryList()
+        
         // 관찰자 옵저버 추가
         NotificationCenter.default.addObserver(
             self,
@@ -35,6 +37,12 @@ class ViewController: UIViewController {
             name: NSNotification.Name("starDiary"),
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deleteDiaryNotification(_:)),
+            name: NSNotification.Name("deleteDiary"),
+            object: nil
+        )
     }
     
     // MARK: - collectionview 설정
@@ -45,6 +53,7 @@ class ViewController: UIViewController {
         self.collectionView.dataSource = self
     }
     
+    // MARK: - 옵져버 동작 메서드 3개 선언
     @objc func editDiaryNotification(_ notification: Notification) {
         guard let diary = notification.object as? Diary else { return }
         guard let row  = notification.userInfo?["indexPath.row"] as? Int else { return }
@@ -60,6 +69,12 @@ class ViewController: UIViewController {
         guard let isStar = starDiary["isStar"] as? Bool else { return }
         guard let indexPath = starDiary["indexPath"] as? IndexPath else { return }
         self.diaryList[indexPath.row].isStar = isStar
+    }
+    
+    @objc func deleteDiaryNotification(_ notification: Notification) {
+        guard let indexPath = notification.object as? IndexPath else { return }
+        self.diaryList.remove(at: indexPath.row)
+        self.collectionView.deleteItems(at: [indexPath])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,7 +160,6 @@ extension ViewController: UICollectionViewDelegate {
         let diary = self.diaryList[indexPath.row]
         viewController.diary = diary
         viewController.indexPath = indexPath
-        viewController.delegate = self
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -164,13 +178,4 @@ extension ViewController: WriteDiaryViewDelegate {
         self.collectionView.reloadData()
     }
     
-}
-
-extension ViewController: DiaryDetailViewDelegate {
-    
-    func didSelectDelete(indexPath: IndexPath) {
-        self.diaryList.remove(at: indexPath.row)
-        self.collectionView.deleteItems(at: [indexPath])
-    }
-
 }

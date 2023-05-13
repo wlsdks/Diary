@@ -7,23 +7,15 @@
 
 import UIKit
 
-protocol DiaryDetailViewDelegate: AnyObject {
-    func didSelectDelete(indexPath: IndexPath)
-}
-
-
 class DiaryDetailViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
+    
     var starButton: UIBarButtonItem?
-    
-    weak var delegate: DiaryDetailViewDelegate?
-    
     var diary: Diary?
     var indexPath: IndexPath?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +68,11 @@ class DiaryDetailViewController: UIViewController {
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
         guard let indexPath = self.indexPath else { return }
-        self.delegate?.didSelectDelete(indexPath: indexPath)
+        NotificationCenter.default.post(
+            name: NSNotification.Name("deleteDiary"),
+            object: indexPath,
+            userInfo: nil
+        )
         // popViewController로 전화면으로 이동시켜 준다.
         self.navigationController?.popViewController(animated: true)
     }
