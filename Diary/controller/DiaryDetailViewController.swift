@@ -45,7 +45,13 @@ class DiaryDetailViewController: UIViewController {
     }
     
     @IBAction func tabEditButton(_ sender: UIButton) {
+        // 일기 상세보기를 누르면 WriteDiaryViewController로 이동한다.
+        guard let viewController = self.storyboard?.instantiateViewController(identifier: "WriteDiaryViewController") as? WriteDiaryViewController else { return }
+        guard let indexPath = self.indexPath else { return }
+        guard let diary = self.diary else { return }
+        viewController.diaryEditorMode = .edit(indexPath, diary)
         
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {

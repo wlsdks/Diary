@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum DiaryEditorMode {
+    case new
+    case edit(IndexPath, Diary)
+}
 
 // MARK: - 프로토콜 선언
 protocol WriteDiaryViewDelegate: AnyObject {
@@ -26,15 +30,39 @@ class WriteDiaryViewController: UIViewController {
     private let datePicker = UIDatePicker()
     private var diaryDate: Date?
     weak var delegate: WriteDiaryViewDelegate?
+    var diaryEditorMode: DiaryEditorMode = .new
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureContentsTextView()
         configureDatePicker()
         configureInputField()
+        configureEditMode()
         // 등록버튼을 비활성화 시켜준다.
         self.confirmButton.isEnabled = false
         
+    }
+    
+    private func configureEditMode() {
+        switch self.diaryEditorMode {
+        case let .edit(_, diary):
+            self.titleTextField.text = diary.title
+            self.contentsTextView.text = diary.contents
+            self.dateTextField.text = dateToString(date: diary.date)
+            self.diaryDate = diary.date
+            self.confirmButton.title = "수정"
+            
+        default:
+            break
+        }
+    }
+    
+    // MARK: - 데이터 타입을 전달받으면 문자열로 변환시켜주는 메서드 선언
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
+        formatter.locale = Locale(identifier: "ko_KR") // 한국어로 표시되게함
+        return formatter.string(from: date)
     }
     
     private func configureContentsTextView() {
