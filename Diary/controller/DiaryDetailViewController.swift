@@ -67,10 +67,10 @@ class DiaryDetailViewController: UIViewController {
     
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
-        guard let indexPath = self.indexPath else { return }
+        guard let uuidString = self.diary?.uuidString else { return }
         NotificationCenter.default.post(
             name: NSNotification.Name("deleteDiary"),
-            object: indexPath,
+            object: uuidString,
             userInfo: nil
         )
         // popViewController로 전화면으로 이동시켜 준다.
@@ -80,7 +80,6 @@ class DiaryDetailViewController: UIViewController {
     // 즐겨찾기를 토글처럼 만든다.
     @objc func tapStarButton() {
         guard let isStar = self.diary?.isStar else { return }
-        guard let indexPath = self.indexPath else { return }
         
         if isStar {
             self.starButton?.image = UIImage(systemName: "star")
@@ -94,7 +93,7 @@ class DiaryDetailViewController: UIViewController {
             object: [
                 "diary": self.diary,
                 "isStar": self.diary?.isStar ?? false,
-                "indexPath": indexPath
+                "uuidString": diary?.uuidString
             ],
             userInfo: nil)
     }

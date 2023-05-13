@@ -103,17 +103,27 @@ class WriteDiaryViewController: UIViewController {
         // switch문으로 NotificationCenter를 사용하도록 하고 new 와 edit을 구분해서 각각 다른동작을 하도록 코드를 구현함
         switch self.diaryEditorMode {
         case .new:
-            let diary = Diary(title: title, contents: contents, date: date, isStar: false)
+            let diary = Diary(
+                uuidString: UUID().uuidString,
+                title: title,
+                contents: contents,
+                date: date,
+                isStar: false
+            )
             self.delegate?.didSelectRegister(diary: diary)
             
         case let .edit(indexPath, diary):
-            let diary = Diary(title: title, contents: contents, date: date, isStar: diary.isStar)
+            let diary = Diary(
+                uuidString: UUID().uuidString,
+                title: title,
+                contents: contents,
+                date: date,
+                isStar: diary.isStar
+            )
             NotificationCenter.default.post(
                 name: NSNotification.Name("editDiary"),
                 object: diary,
-                userInfo: [
-                    "indexPath.row": indexPath.row
-                ]
+                userInfo: nil
             )
         
         }
