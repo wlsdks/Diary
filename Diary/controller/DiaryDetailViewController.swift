@@ -9,17 +9,14 @@ import UIKit
 
 protocol DiaryDetailViewDelegate: AnyObject {
     func didSelectDelete(indexPath: IndexPath)
-    func didSelectStar(indexPath: IndexPath, isStar: Bool)
 }
 
 
 class DiaryDetailViewController: UIViewController {
     
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
-    
     var starButton: UIBarButtonItem?
     
     weak var delegate: DiaryDetailViewDelegate?
@@ -96,7 +93,13 @@ class DiaryDetailViewController: UIViewController {
         }
         // 마지막에 변경해줘서 다음에 누르면 바뀌니까 토글역할을 한다.
         self.diary?.isStar = !isStar
-        self.delegate?.didSelectStar(indexPath: indexPath, isStar: self.diary?.isStar ?? false)
+        NotificationCenter.default.post(
+            name: NSNotification.Name("starDiary"),
+            object: [
+                "isStar": self.diary?.isStar ?? false,
+                "indexPath": indexPath
+            ],
+            userInfo: nil)
     }
     
     // MARK: - 관찰이 필요없을때는 옵저버가 제거된다.
