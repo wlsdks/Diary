@@ -51,7 +51,26 @@ class DiaryDetailViewController: UIViewController {
         guard let diary = self.diary else { return }
         viewController.diaryEditorMode = .edit(indexPath, diary)
         
+        // Notification 감시코드 추가
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(editDiaryNotification(_:)),
+            name: NSNotification.Name("editDiary"),
+            object: nil)
+        
         self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc func editDiaryNotification(_ notification: Notification) {
+        guard let diary = notification.object as? Diary else { return }
+        guard let row = notification.userInfo?["indexPath.row"] as? Int else { return }
+        self.diary = diary
+        self.configureView()
+    }
+    
+    // MARK: - 관찰이 필요없을때는 옵저버가 제거된다.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
