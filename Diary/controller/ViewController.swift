@@ -59,6 +59,13 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - collectionView 델리게이트 채택
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (UIScreen.main.bounds.width / 2) - 20, height: 200)
+    }
+}
+
 // MARK: - WriteDiaryViewDelegate를 확장해서 채택해야 위에 prepare에서 사용가능함
 extension ViewController: WriteDiaryViewDelegate {
     
