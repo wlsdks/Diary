@@ -18,6 +18,9 @@ class DiaryDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    var starButton: UIBarButtonItem?
+    
     weak var delegate: DiaryDetailViewDelegate?
     
     var diary: Diary?
@@ -34,6 +37,10 @@ class DiaryDetailViewController: UIViewController {
         self.titleLabel.text = diary.title
         self.contentsTextView.text = diary.contents
         self.dateLabel.text = self.dateToString(date: diary.date)
+        self.starButton = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(tapStarButton))
+        self.starButton?.image = diary.isStar ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+        self.starButton?.tintColor = .orange
+        self.navigationItem.rightBarButtonItem = self.starButton
     }
     
     // MARK: - 데이터 타입을 전달받으면 문자열로 변환시켜주는 메서드 선언
@@ -68,16 +75,21 @@ class DiaryDetailViewController: UIViewController {
         self.configureView()
     }
     
-    // MARK: - 관찰이 필요없을때는 옵저버가 제거된다.
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     
     @IBAction func tapDeleteButton(_ sender: UIButton) {
         guard let indexPath = self.indexPath else { return }
         self.delegate?.didSelectDelete(indexPath: indexPath)
         // popViewController로 전화면으로 이동시켜 준다.
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func tapStarButton() {
+        
+    }
+    
+    // MARK: - 관찰이 필요없을때는 옵저버가 제거된다.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
