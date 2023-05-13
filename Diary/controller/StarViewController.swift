@@ -102,8 +102,7 @@ class StarViewController: UIViewController {
         guard let starDiary = notification.object as? [String: Any] else { return }
         guard let diary = starDiary["diary"] as? Diary else { return }
         guard let isStar = starDiary["isStar"] as? Bool else { return }
-        guard let uuidString = starDiary["uuidString"] as? IndexPath else { return }
-        guard let index = self.diaryList.firstIndex(where: { $0.uuidString == diary.uuidString }) else { return }
+        guard let uuidString = starDiary["uuidString"] as? String else { return }
         // 즐겨찾기를 해제하면 리스트에서 삭제해야함
         if isStar {
             self.diaryList.append(diary)
@@ -112,6 +111,8 @@ class StarViewController: UIViewController {
             })
             self.collectionView.reloadData()
         } else {
+            // index는 아래의 로직(삭제)에서만 필요하니 여기에 넣어준다.
+            guard let index = self.diaryList.firstIndex(where: { $0.uuidString == uuidString }) else { return }
             self.diaryList.remove(at: index)
             self.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         }
