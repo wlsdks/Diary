@@ -330,6 +330,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="53.666666666666664" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="수정"/>
+                                        <connections>
+                                            <action selector="tabEditButton:" destination="0Z6-Gd-JeC" eventType="touchUpInside" id="Ca4-5m-NEO"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCt-If-Zj2">
                                         <rect key="frame" x="103.66666666666667" y="0.0" width="53.666666666666671" height="34.333333333333336"/>
@@ -337,6 +340,9 @@
                                         <state key="normal" title="삭제">
                                             <color key="titleColor" systemColor="systemRedColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tapDeleteButton:" destination="0Z6-Gd-JeC" eventType="touchUpInside" id="HEJ-Ke-niM"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -360,6 +366,11 @@
                             <constraint firstItem="KnJ-fP-G8x" firstAttribute="leading" secondItem="Yic-Fo-7RE" secondAttribute="leading" constant="24" id="wbu-rA-Q9b"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contentsTextView" destination="ghi-l7-i8q" id="pJL-BL-3RX"/>
+                        <outlet property="dateLabel" destination="Mlu-Dv-1Pe" id="BwQ-ew-ouE"/>
+                        <outlet property="titleLabel" destination="hxM-VT-apq" id="bL7-10-49W"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLt-4R-L8R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
