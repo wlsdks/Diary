@@ -51,7 +51,10 @@ class WriteDiaryViewController: UIViewController {
     private func configureInputField() {
         self.contentsTextView.delegate = self
         self.titleTextField.addTarget(self, action: #selector(titleTextFieldDidChange(_:)), for: .editingChanged)
+        // datePicker는 키보드로 입력을 받지 않다보니 .editingChanged를 발생시키려면 아래의 코드를 하나 더 작성해줘야 한다.
         self.dateTextField.addTarget(self, action: #selector(dateTextFieldDidChange(_:)), for: .editingChanged)
+        // 이러면 날짜가 변경될때마다 editingChanged를 동작시킨다.
+        self.dateTextField.sendActions(for: .editingChanged)
     }
     
     @IBAction func tapConfirmButton(_ sender: UIBarButtonItem) {
