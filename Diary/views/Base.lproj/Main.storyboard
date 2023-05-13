@@ -162,7 +162,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="일기 작성" id="GPo-XL-pbz">
-                        <barButtonItem key="rightBarButtonItem" title="등록" id="41M-4f-d56"/>
+                        <barButtonItem key="rightBarButtonItem" title="등록" id="41M-4f-d56">
+                            <connections>
+                                <action selector="tapConfirmButton:" destination="87s-QI-JfZ" id="3Ta-aA-Gcm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="confirmButton" destination="41M-4f-d56" id="NuF-wE-Ldr"/>

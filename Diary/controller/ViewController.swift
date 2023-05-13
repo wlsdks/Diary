@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.configureCollectionView()
     }
     
     // MARK: - collectionview 설정
@@ -72,6 +73,8 @@ extension ViewController: WriteDiaryViewDelegate {
     // 일기작성화면에 일기가 작성될때마다 diary배열에 일기내용 객체들이 추가가 된다.
     func didSelectRegister(diary: Diary) {
         self.diaryList.append(diary)
+        // 일기가 추가될때마다 collectionView를 reload시킨다.
+        self.collectionView.reloadData()
     }
     
 }
