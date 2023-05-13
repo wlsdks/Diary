@@ -53,6 +53,7 @@ class ViewController: UIViewController {
         userDefaults.set(date, forKey: "diaryList")
     }
     
+    // MARK: - 일기 내용을 로드한다.
     private func loadDiaryList() {
         let userDefaults = UserDefaults.standard
         guard let data = userDefaults.object(forKey: "diaryList") as? [[String: Any]] else {
@@ -66,6 +67,10 @@ class ViewController: UIViewController {
             guard let isStar = $0["isStar"] as? Bool else { return nil }
             return Diary(title: title, contents: contents, date: date, isStar: isStar)
         }
+        self.diaryList = self.diaryList.sorted(by: {
+            // 왼쪽 오른쪽 비교해서 내림차순으로 정렬실시 -> 최신순으로 정렬됨
+            $0.date.compare($1.date) == .orderedDescending
+        })
     }
     
     // MARK: - 데이터 타입을 전달받으면 문자열로 변환시켜주는 메서드 선언
@@ -108,6 +113,10 @@ extension ViewController: WriteDiaryViewDelegate {
     // 일기작성화면에 일기가 작성될때마다 diary배열에 일기내용 객체들이 추가가 된다.
     func didSelectRegister(diary: Diary) {
         self.diaryList.append(diary)
+        // 일기가 추가된 뒤 날짜를 최신순으로 정렬한다.
+        self.diaryList = self.diaryList.sorted(by: {
+            $0.date.compare($1.date) == .orderedDescending
+        })
         // 일기가 추가될때마다 collectionView를 reload시킨다.
         self.collectionView.reloadData()
     }
